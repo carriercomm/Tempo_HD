@@ -11,6 +11,8 @@ meteor add d3
 meteor add underscore
 meteor add garrilla:topojson
 git init
-git remote add origin https://github.com/user/repo.git
+git remote add origin https://github.com/jaxonpickett/beacon_hd.git
+git pull origin master
+
 
 
