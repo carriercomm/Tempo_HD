@@ -8,17 +8,19 @@ To use:
 
 meteor create beacon_hd
 
+git init
+
+git remote add origin https://github.com/jaxonpickett/beacon_hd.git
+
+git fetch --all
+
+git reset --hard origin/master
+
 meteor add d3
 
 meteor add underscore
 
 meteor add garrilla:topojson
-
-git init
-
-git remote add origin https://github.com/jaxonpickett/beacon_hd.git
-
-git pull origin master
 
 
 
