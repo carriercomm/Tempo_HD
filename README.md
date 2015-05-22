@@ -8,6 +8,8 @@ To use:
 
 meteor create beacon_hd
 
+cd beacon_hd
+
 git init
 
 git remote add origin https://github.com/jaxonpickett/beacon_hd.git
