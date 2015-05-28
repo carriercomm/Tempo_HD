@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.map1{
+	border-style:solid;
+}
+
+.subunit.USA { fill: #D78931; }
+.subunit.PRI { fill: #D78931; }
+.subunit.MEX { fill: #93C88C; }
+.subunit.CAN { fill: #92A1CD; }
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script>
+
+var width = 1160,
+	height = 800;
+	
+var svg = d3.select('body').append('svg')
+	.attr('width', width)
+	.attr('height', height)
+	.attr('class', 'map1');
+	
+d3.json('assets/thd_states.json', function(error, thd_states){
+	if(error)return console.error(error);
+	console.log(thd_states);
+	
+	var subunits = topojson.feature(thd_states, thd_states.objects.na_states_places).features;
+	
+	var projection = d3.geo.mercator()
+		.scale(300)
+		.center([-105,49])
+		.translate([width/2, height/2]);
+	
+	var path = d3.geo.path()
+		.projection(projection);
+	
+	svg.selectAll('.subunit')
+		.data(subunits)
+		.enter().append('path')
+			.attr('class', function(d) { 
+				var classes = 'subunit ';
+				var cId = d.id.toString().substring(0,3);
+				classes += cId;
+				return classes; 
+			})
+			.attr('d', path);
+			
+	svg.append("path")
+		.datum(topojson.feature(thd_states, thd_states.objects.na_places1))
+		.attr("d", path)
+		.attr("class", "place");
+});
+
+</script>
+</body>
+</html>
