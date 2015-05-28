@@ -14,8 +14,8 @@ if(Meteor.isServer){
 }
 
 if(Meteor.isClient){
-  Template.vis.rendered = function(){
-    var svg, width = 500, height = 75, x;
+  /*Template.vis.rendered = function(){
+    var svg, width = 700, height = 75, x;
 
     svg = d3.select('#circles').append('svg')
         .attr('width', width)
@@ -40,9 +40,45 @@ if(Meteor.isClient){
         x = d3.scale.ordinal()
             .domain(d3.range(Circles.findOne().data.length))
             .rangePoints([0,width], 1);
-        drawCircles(false);
+          drawCircles(false);
       },
-      changed: _.partial(drawCircles, true)
+        changed: _.partial(drawCircles, true)
     });
-  };
+  };*/
+
+    Template.mappy.rendered = function(){
+
+        var width = 1160,
+            height = 800;
+
+        var svg = d3.select('#na_map').append('svg')
+            .attr('width', width)
+            .attr('height', height);
+        console.log(this);
+        d3.json('assets/thd_states.json', function(error, thd_states){
+            if(error)return console.error(error);
+            console.log(thd_states);
+
+            var subunits = topojson.feature(thd_states, thd_states.objects.na_states_places).features;
+
+            var projection = d3.geo.mercator()
+                .scale(300)
+                .center([-105,49])
+                .translate([width/2, height/2]);
+
+            var path = d3.geo.path()
+                .projection(projection);
+
+            svg.selectAll('.subunit')
+                .data(subunits)
+                .enter().append('path')
+                .attr('class', function(d) {
+                    var classes = 'subunit ';
+                    var cId = d.id.toString().substring(0,3);
+                    classes += cId;
+                    return classes;
+                })
+                .attr('d', path);
+        });
+    };
 }
