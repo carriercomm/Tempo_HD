@@ -1,11 +1,18 @@
 Template.map.rendered = function(){
-	var svg, width = 1600, height = 1200;
+	var svg, width = 1200, height = 700;
 
 	svg = d3.select('#map').append('svg')
 			.attr('width', width)
 			.attr('height', height);
 			
-	var path = d3.geo.path();
+	var projection = d3.geo.conicConformal()
+    .rotate([98, 0])
+    .center([0, 38])
+    .parallels([29.5, 45.5])
+    .scale(500)
+    .translate([width / 2, height / 2]);
+		
+	var path = d3.geo.path().projection(projection);
 	
 	// Commented out this wrapper, I think this file should only be loaded once, on render. This will be 
 	// moved to an inner location once we begin loading the store data.
