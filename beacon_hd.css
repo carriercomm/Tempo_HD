@@ -4,3 +4,4 @@
 .status_YELLOW { fill: YELLOW; }
 .status_ORANGE { fill: ORANGE; }
 
+/*db.countries.update({cid: "MEX"}, {$set: {status: "GREEN"}});*/
