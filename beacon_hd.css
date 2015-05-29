@@ -1,1 +1,6 @@
 /* CSS declarations go here */
+.status_GREEN { fill: GREEN; }
+.status_RED { fill: RED; }
+.status_YELLOW { fill: YELLOW; }
+.status_ORANGE { fill: ORANGE; }
+

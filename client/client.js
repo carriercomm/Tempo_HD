@@ -1,3 +1,5 @@
+Meteor.subscribe('country_status');
+
 Template.map.rendered = function(){
 	var svg, width = 1200, height = 700;
 
@@ -20,12 +22,17 @@ Template.map.rendered = function(){
 		
 		d3.json('/thd_states.json', function(states){
 			
-			
 			console.log(states);
 			
-			svg.selectAll('path').data(topojson.feature(states, states.objects.na_states_places).features)
-				.enter().append('path')
-					.attr('d',path);
+			svg.selectAll('path')
+			.data(topojson.feature(states, states.objects.na_states_places).features)
+			.enter().append('path')
+				.attr('class', function(d){ 
+					var id = d.id.slice(0,3);
+					var status = Countries.findOne({cid: id}).status;
+					return 'cid_' + id + ' status_' + status;
+				})
+				.attr('d',path);
 		});
 		
 	//});
