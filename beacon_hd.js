@@ -1,1 +1,1 @@
-Countries = new Mongo.Collection('countries');
+StoreStatus = new Mongo.Collection('store_status');

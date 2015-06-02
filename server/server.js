@@ -1,19 +1,25 @@
 Meteor.startup(function(){
 	//console.log('Before start up:\n');
-	//console.log(Countries.find().fetch());
-	if(Countries.find().fetch().length > 0){
-		Countries.remove({});
+	//console.log(StoreStatus.find().fetch());
+	/*if(StoreStatus.find().fetch().length > 0){
+		StoreStatus.remove({});
+	}*/
+	if(StoreStatus.find().fetch().length == 0){
+		var test_data = JSON.parse(Assets.getText('testData.json'));
+		var len = test_data.length, i = 0;
+		for(i;i<len;i++){
+			//console.log(test_data[i]);
+			StoreStatus.insert(test_data[i]);
+		}
 	}
-	Countries.insert({cid: "MEX", status: "RED"});
-	Countries.insert({cid: "CAN", status: "YELLOW"});
-	Countries.insert({cid: "USA", status: "ORANGE"});
-	Countries.insert({cid: "PRI", status: "GREEN"});
 	
 	console.log('After start up:\n');
-	//console.log(Countries.find().fetch());
-	//console.log(Countries);
+	console.log(StoreStatus.find().fetch().length);
+	//console.log(StoreStatus);
 });
 
-Meteor.publish('country_status', function(){
-	return Countries.find();
+Meteor.publish('store_status', function(){
+	var status = StoreStatus.find();
+	console.log('Publishing ' + status.fetch().length + ' documents.');
+	return status;
 });

@@ -1,7 +1,13 @@
 /* CSS declarations go here */
-.status_GREEN { fill: GREEN; }
-.status_RED { fill: RED; }
-.status_YELLOW { fill: YELLOW; }
-.status_ORANGE { fill: ORANGE; }
+svg { 
+	border: solid;
+	margin: auto;
+}
+path { fill: #9DB8BA; }
+.cid_USB { fill: #EDB444; }
+.cid_USK { fill: #EDB444; }
+.cid_USH { fill: #EDB444; }
+.cid_PRI { fill: #EDB444; }
+
 
 /*db.countries.update({cid: "MEX"}, {$set: {status: "GREEN"}});*/
