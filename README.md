@@ -1,28 +1,14 @@
-# beacon_hd
+### beacon_hd
 
-Reactive data visualization using Meteor framework and D3.js
+## Reactive data visualization using Meteor framework and D3.js
 
-Initial target is reactive store map.
+# Current State:
 
-To use:
+Map drawn with d3 geo package, receiving store status via Meteor reactive data source. Data provided via static json file, updated to test reactivity via direct interaction with Mongo command line.
 
-meteor create beacon_hd
+# Planned Features:
 
-cd beacon_hd
-
-git init
-
-git remote add origin https://github.com/jaxonpickett/beacon_hd.git
-
-git fetch --all
-
-git reset --hard origin/master
-
-meteor add d3
-
-meteor add underscore
-
-meteor add garrilla:topojson
+Info boxes displayed on mouse events onhover and onclick; enhanced reactivity testing via scripted input. 
 
 
 
