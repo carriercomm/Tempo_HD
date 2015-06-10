@@ -1,9 +1,10 @@
 Meteor.startup(function(){
 	//console.log('Before start up:\n');
 	//console.log(StoreStatus.find().fetch());
-	/*if(StoreStatus.find().fetch().length > 0){
+	if(StoreStatus.find().fetch().length > 0){
 		StoreStatus.remove({});
-	}*/
+	}
+
 	if(StoreStatus.find().fetch().length == 0){
 		var test_data = JSON.parse(Assets.getText('testData.json'));
 		var len = test_data.length, i = 0;

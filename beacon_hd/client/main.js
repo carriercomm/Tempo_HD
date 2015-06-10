@@ -7,7 +7,7 @@ Template.map.onRendered(function(){
 	svg = d3.select('#map').append('svg')
 			.attr('width', width)
 			.attr('height', height);
-	
+
 	// Different projection, looks a little funky on the edges,
 	// might be good for a USA only map.
 	/*var projection = d3.geo.conicConformal()
@@ -59,7 +59,7 @@ Template.map.onRendered(function(){
 			// Checks to make sure data from mongo has loaded:
 
 				var store_status = StoreStatus.find().fetch();
-                console.log(store_status);
+
 				var circles = svg.selectAll("circle")
 					.data(store_status)
 						.style('fill', function(d){

@@ -40,5 +40,10 @@ div.clickbox {
     //pointer-events: none;
 }
 
+.test-button {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
 
 /*db.countries.update({cid: "MEX"}, {$set: {status: "GREEN"}});*/
