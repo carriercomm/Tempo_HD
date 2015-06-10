@@ -1,6 +1,11 @@
 /* CSS declarations go here */
+body {
+    margin: 0 0 0 0;
+    overflow: hidden;
+}
+
 svg { 
-	border: solid;
+	//border: solid;
 	margin: auto;
 }
 path { fill: #9DB8BA; }

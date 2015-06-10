@@ -2,7 +2,7 @@ var stores_handle = Meteor.subscribe('store_status');
 
 Template.map.onRendered(function(){
 
-	var svg, width = 1200, height = 700;
+	var svg, width = window.innerWidth, height = window.innerHeight;
 
 	svg = d3.select('#map').append('svg')
 			.attr('width', width)
@@ -18,12 +18,12 @@ Template.map.onRendered(function(){
     .translate([width / 2, height / 2]);*/
 		
 	var projection = d3.geo.mercator()
-		.scale(500)
-		.center([-100,39])
+		.scale(543)
+		.center([-100,46])
 		.translate([width/2, height/2]);
 		
 	var path = d3.geo.path().projection(projection);
-	
+
 	d3.json('/hdgeo.json', function(states){
 
 		console.log(states);
