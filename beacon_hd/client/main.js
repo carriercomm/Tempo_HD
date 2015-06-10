@@ -18,8 +18,8 @@ Template.map.onRendered(function(){
     .translate([width / 2, height / 2]);*/
 		
 	var projection = d3.geo.mercator()
-		.scale(543)
-		.center([-100,46])
+		.scale(723)
+		.center([-100,44])
 		.translate([width/2, height/2]);
 		
 	var path = d3.geo.path().projection(projection);
