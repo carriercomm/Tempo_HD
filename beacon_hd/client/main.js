@@ -38,6 +38,17 @@ Template.map.onRendered(function(){
                 .style('pointer-events', 'none');
         });
 
+		clickbox.heightOfBox = 0;
+		clickbox.getMetrics = function (d){
+			var html='';
+			for(metric in d){
+				//console.log(metric);
+				html += '<tr><td><b>' + metric + ':</b></td><td>' + d[metric] + '</td></tr>';
+				clickbox.heightOfBox+=25;
+			}
+			return html;
+		}
+
 	d3.json('/hdgeo.json', function(states){
 
 		console.log(states);
@@ -55,6 +66,7 @@ Template.map.onRendered(function(){
 			.attr('d',path);
 
 		Tracker.autorun(function(){
+			var heightOfBox = 0;
 			if(stores_handle.ready()){
 			// Checks to make sure data from mongo has loaded:
 
@@ -115,9 +127,12 @@ Template.map.onRendered(function(){
                         clickbox.transition()
                             .duration(200)
                             .style("opacity", .8);
-                        clickbox .html(d.num + "<br/>"  + d.status)
+                        clickbox .html(//d.num + "<br/>"  + d.status
+							'<table>' + clickbox.getMetrics(d) + '</table>'
+						)
                             .style("left", (d3.event.pageX) + "px")
                             .style("top", (d3.event.pageY - 28) + "px")
+							.style('height',clickbox.heightOfBox + 'px')
                             .style('pointer-events', 'auto');
                     });
 			}
