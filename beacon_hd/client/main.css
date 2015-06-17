@@ -7,12 +7,11 @@ body {
 svg { 
 	//border: solid;
 	margin: auto;
+    background-color: BLACK;
 }
 path { fill: #9DB8BA; }
-.cid_USB { fill: #EDB444; }
-.cid_USK { fill: #EDB444; }
-.cid_USH { fill: #EDB444; }
-.cid_PRI { fill: #EDB444; }
+.states.US { fill: #EDB444; }
+.countries.PRI { fill: #EDB444; }
 
 div.hoverbox {
     position: absolute;
