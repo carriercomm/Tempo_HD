@@ -32,19 +32,27 @@ Template.map.onRendered(function(){
         .attr('class', 'clickbox')
         .style('opacity', 0)
         .on('click', function(){
+			svg.attr('class','');
             d3.select(this).transition()
                 .duration(500)
                 .style("opacity", 0)
                 .style('pointer-events', 'none');
         });
-
 		clickbox.heightOfBox = 0;
 		clickbox.getMetrics = function (d){
 			var html='';
-			for(metric in d){
-				//console.log(metric);
-				html += '<tr><td><b>' + metric + ':</b></td><td>' + d[metric] + '</td></tr>';
-				clickbox.heightOfBox+=25;
+			clickbox.heightOfBox = 0;
+			var count = 1;
+			for(metric in d.metrics) {
+
+				if (count % 3 != 0) {
+					html += '<td><b>' + metric + ':</b></td><td>' + d.metrics[metric] + '</td>';
+				}
+				else if (count % 3 == 0 || count != 0) {
+					html += '<td><b>' + metric + ':</b></td><td>' + d.metrics[metric] + '</td></tr><tr>';
+					clickbox.heightOfBox += 60;
+				}
+				count++;
 			}
 			return html;
 		}
@@ -66,7 +74,6 @@ Template.map.onRendered(function(){
 			.attr('d',path);
 
 		Tracker.autorun(function(){
-			var heightOfBox = 0;
 			if(stores_handle.ready()){
 			// Checks to make sure data from mongo has loaded:
 
@@ -127,13 +134,26 @@ Template.map.onRendered(function(){
                         clickbox.transition()
                             .duration(200)
                             .style("opacity", .8);
-                        clickbox .html(//d.num + "<br/>"  + d.status
-							'<table>' + clickbox.getMetrics(d) + '</table>'
+                        clickbox .html(
+							'<div style="text-align:center;font-size:200%"><b>Store '+ d.num +
+							//'<span id="close" onclick="buttonClose()">x</span>' +
+							'</b>' +
+								'</br>'+
+							'<b>NAME OF STORE HERE</b></br>' +
+							'<b>Status: '+ d.status + '</b></br></br></div>' +
+							'<div style="font-size:150%"><table style="width:100%">' + clickbox.getMetrics(d) + '</table></div>'
 						)
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px")
+                            .style("left", (width/2)-350 + "px")
+                            .style("top", height/2-250 + "px")
 							.style('height',clickbox.heightOfBox + 'px')
                             .style('pointer-events', 'auto');
+						svg.attr('class','dimming');
+							//.style("position","fixed")
+							//.style("width","100%")
+							//.style("height","100%")
+							//.style("top","0")
+							//.style("left","0")
+							//.style("opacity",0.6);
                     });
 			}
 		});
