@@ -3,37 +3,43 @@ var stores_handle = Meteor.subscribe('store_status');
 Template.map.onRendered(function(){
 
 	var svg, width = window.outerWidth,
-        height = window.outerHeight;
+        height = window.outerHeight,
+        currentScale = 2,
+        currentTrans = [0,0];
 		
 	var projection = d3.geo.mercator()
-		.scale(width/Math.PI)
-        //.rotate([100,0])
-        .center([-100,34])
-		.translate([width/2, height/2]);
+		.scale(width/2/Math.PI)
+        .rotate([100,0])
+        .center([0,34])
+		.translate([width/2/currentScale, height/2/currentScale]);
 		
 	var path = d3.geo.path().projection(projection);
 
-    var zoom = d3.behavior.zoom().translate([0, 0]).scale(1).scaleExtent([1, 100]).on('zoom', function(){
+    var zoom = d3.behavior.zoom().translate(currentTrans).scale(currentScale).scaleExtent([2, 100]).on('zoom', function(){
         var t = d3.event.translate;
         var s = d3.event.scale;
 
-        var w_max = 0;
+        /*var w_max = 0;
         var w_min = width * (1 - s);
         var h_max = height < s*width/2 ? s*(width/2-height)/2 : (1-s)*height/2;
         var h_min = height < s*width/2 ? -s*(width/2-height)/2-(s-1)*height : (1-s)*height/2;
-        //var yaw = projection.rotate()[0];
 
         t[0] = Math.min(w_max, Math.max(w_min, t[0]));
-        t[1] = Math.min(h_max, Math.max(h_min, t[1]));
+        t[1] = Math.min(h_max, Math.max(h_min, t[1]));*/
 
-        zoom.translate(t);
+        //zoom.translate(t);
+
+        //var yaw = projection.rotate()[0];
         //projection.rotate([yaw+360.*t[0]/width/s, 0, 0]);
-        console.log(t);
-        g.attr('transform', 'translate(' + t + ')scale(' + s + ')');
+
+        g.attr('transform', 'translate(' + t + '),scale(' + s + ')');
         g.selectAll('path').style('stroke-width', .5 / s + 'px');
         g.selectAll('circle')
-            .attr('r', width * .003/s)
+            .attr('r', 3/s)
             .attr('stroke-width',.7/s);
+
+        currentScale = s;
+        currentTrans = t;
 
     });
 
@@ -57,6 +63,28 @@ Template.map.onRendered(function(){
                 .style("opacity", 0)
                 .style('pointer-events', 'none');
         });
+
+    d3.select(window).on('resize', function() {
+        var dW = width - window.outerWidth;
+        var dH = height - window.outerHeight;
+        width = window.outerWidth;
+        height = window.outerHeight;
+
+        svg.attr('width', width).attr('height', height);
+
+        g.attr('transform', 'translate(' + (currentTrans[0] - dW/2) + ',' + (currentTrans[1] - dH/2) + '),scale(' + currentScale + ')');
+        currentTrans[0] = currentTrans[0] - dW/2;
+        currentTrans[1] = currentTrans[1] - dH/2;
+
+        //console.log(g.attr('transform'));
+
+        /*g.selectAll('circle')
+            .attr('transform', function(d) {
+                return 'translate(' + projection([Number(d.lng), Number(d.lat)]) + ')';
+            })
+            .attr('r', 3/currentScale);*/
+
+    });
 
 	d3.json('/world_hi_lakes_topo.json', function(world){
 
@@ -86,25 +114,8 @@ Template.map.onRendered(function(){
                 })
                 .attr('d',path);
 
-        d3.select(window).on('resize', function() {
-            width = window.outerWidth;
-            height = window.outerHeight;
-
-            //svg.attr('width', width).attr('height', height);
-
-            projection
-                .scale(width/Math.PI)
-                .translate([width/2, height/2]);
-
-            g.selectAll("path")
-                .attr("d", path);
-
-            g.selectAll('circle')
-                .attr('transform', function(d) {
-                    return 'translate(' + projection([Number(d.lng), Number(d.lat)]) + ')';
-                })
-                .attr('r', width * .003);
-        });
+        g.attr('transform', 'translate(0,0),scale(2)');
+        g.selectAll('path').style('stroke-width', .5 / currentScale + 'px');
 
 		Tracker.autorun(function(){
 
@@ -123,12 +134,12 @@ Template.map.onRendered(function(){
 							return 'translate(' + projection([Number(d.lng), Number(d.lat)]) + ')';
 						})
 						.attr('class', 'place')
-						.attr('r', width * .003 )
+						.attr('r', 3/currentScale )
 						.style('fill', function(d){
 							return d.status;
 						})
 						.attr('stroke', 'darkgray')
-                        .attr('stroke-width',.7)
+                        .attr('stroke-width',.7/currentScale)
                         .on("mouseover", function(d) {
                             hoverbox.transition()
                                 .duration(200)
