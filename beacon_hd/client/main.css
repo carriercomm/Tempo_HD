@@ -61,4 +61,5 @@ div.clickbox {
     padding:2px 5px;
 }
 
+
 /*db.countries.update({cid: "MEX"}, {$set: {status: "GREEN"}});*/
