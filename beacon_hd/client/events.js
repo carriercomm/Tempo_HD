@@ -15,7 +15,7 @@ Template.clickbox.events = {
             .duration(400)
             .style('opacity',0);
         //reset html so that it doesn't repeat itself
-        d3.select('#clickbox').html('<span id="close" style="cursor:pointer">X</span>');
+        d3.select('#clickbox').html('<span id="close" style="cursor:pointer">X</span>').style('pointer-events','none');
         //take out dim from map
         d3.select('svg').classed('dimming',false);
     }
