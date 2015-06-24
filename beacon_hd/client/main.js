@@ -99,6 +99,9 @@ Template.map.onRendered(function(){
         currentTrans[0] = currentTrans[0] - dW/2;
         currentTrans[1] = currentTrans[1] - dH/2;
 
+        clickbox.style("left", (width/2)-350 + "px")
+            .style("top", height/2-250 + "px");
+
         //console.log(g.attr('transform'));
 
         /*g.selectAll('circle')
