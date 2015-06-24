@@ -112,7 +112,7 @@ Template.map.onRendered(function(){
 
     });
 
-	d3.json('/world_hi_lakes_topo.json', function(world){
+	d3.json('/world_simplified_40.json', function(world){
 
 		console.log(world);
 
