@@ -50,6 +50,8 @@ Template.map.onRendered(function(){
 
     var g = svg.append('g');
 
+    var clickbox = Meteor.clickbox.clickbox();
+
     var hoverbox = d3.select('body').append('div')
         .attr('class', 'hoverbox')
         .style('opacity', 0);
@@ -157,7 +159,7 @@ Template.map.onRendered(function(){
                                 '<div style="font-size:200%"><b>Store '+ d.num + '</br>'+
                                 '<b>NAME OF STORE HERE</b></br>' +
                                 '<b>Status: '+ d.status + '</b></div></br><hr></br>' +
-                                '<div style="font-size:150%"><table style="width:100%;">' + clickbox.getMetrics(d) + '</table></div>'
+                                '<div style="font-size:150%"><table style="width:100%;">' + Meteor.clickbox.getMetrics(d) + '</table></div>'
                             )
                                 .style("left", (width/2)-350 + "px")
                                 .style("top", height/2-250 + "px")
