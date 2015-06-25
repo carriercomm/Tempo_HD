@@ -35,20 +35,6 @@ div.hoverbox {
     pointer-events: none;
 }
 
-div.clickbox {
-    position: absolute;
-    text-align: center;
-    width: 700px;
-    /*height: 48px;*/
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 7px;
-    border-style: double;
-    border-radius: 10px;
-    border-color: white;
-    pointer-events: none;
-}
 
 .test-button {
     position: absolute;
