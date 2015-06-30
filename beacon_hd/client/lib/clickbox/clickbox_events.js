@@ -9,8 +9,27 @@ Template.clickbox.events = {
             .duration(400)
             .style('opacity',0);
         //reset html so that it doesn't repeat itself
-        d3.select('#clickbox').html('<span id="close" style="cursor:pointer">X</span>').style('pointer-events','none');
+        d3.select('#clickbox').html('<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>');//.style('pointer-events','none');
         //take out dim from map
-        d3.select('svg').classed('dimming',false);
+    },
+    'click span#minimize': function () {
+        var clickbox = d3.select('#clickbox');
+
+        if(clickbox.attr('class') == 'miniclickbox'){
+            //Fade clickbox out
+            clickbox.transition()
+                .duration(400)
+                .attr('class','clickbox');
+            //reset html so that it doesn't repeat itself
+            clickbox.html('<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>');//.style('pointer-events','none');
+        }
+        else{
+            //Fade clickbox out
+            clickbox.transition()
+                .duration(400)
+                .attr('class','miniclickbox');
+            //reset html so that it doesn't repeat itself
+            d3.select('#clickbox').html('<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>');//.style('pointer-events','none');
+        }
     }
 }

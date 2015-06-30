@@ -42,7 +42,7 @@ div.hoverbox {
     left: 25px;
 }
 
-#close{
+.close{
     float:right;
     display:inline-block;
     padding:2px 5px;

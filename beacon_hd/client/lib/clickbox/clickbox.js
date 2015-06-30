@@ -5,7 +5,15 @@
 Meteor.clickbox = {
 
     clickbox : function(){
-        return d3.select('#clickbox');
+        var clickbox =  d3.select('#clickbox');
+        var drag = d3.behavior.drag()
+            .on("drag", function() {
+                d3.select(this)
+                    .style("top", ((d3.event.sourceEvent.pageY) - this.offsetHeight/2)+"px")
+                    .style("left", ((d3.event.sourceEvent.pageX) - this.offsetWidth/2)+"px")
+            });
+        clickbox.call(drag);
+        return clickbox;
     },
 
     //Gets metrics from json
