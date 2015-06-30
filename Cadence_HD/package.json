@@ -1,0 +1,14 @@
+{
+  "name": "cadence_hd",
+  "version": "0.0.0",
+  "description": "Bridge between Kafka and MongoDB for Tempo_HD applications",
+  "main": "cadence.js",
+  "scripts": {
+    "test": "node cadence.js"
+  },
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "mongodb": "~2.0.35"
+  }
+}
