@@ -7,8 +7,6 @@ that can run [Meteor](https://www.meteor.com/) apps. Can be used on Windows, Mac
 ## Getting started
 
 The following instructions are optimized for Windows users.
-If you have questions or problems after reading and doing the following instructions please open an issue and I will
-try to address your issue.
 
 ### Installation
 
@@ -27,20 +25,19 @@ The folder is synchronised to two places on the guest. Each synchronized folder 
 
 #### Rsync - one way synchronisation for starting the Meteor app
 
-The folder is synchronised with [Rsync](http://docs.vagrantup.com/v2/synced-folders/rsync.html) to the guest folder `/vagrant`.
+The folder is synchronised with [Rsync](http://docs.vagrantup.com/v2/synced-folders/rsync.html) to the guest folder `/meteor_cli`.
 
 * You must use this folder to start the Meteor app.
 * You must use this folder for `mrt add` and `mrt update`.
 * Changes won't be synchronized back to the host and will be deleted after the next sync.
 
-#### Shared Folder - two way synchronisation for file editing
+#### Shared Folders - two way synchronisation for file editing
 
-The folder is also synchronised with the [VirtualBox shared folder feature](https://www.virtualbox.org/manual/ch04.html#sharedfolders) to the guest folder `/vagrant2`.
+The folders are also synchronised with the [VirtualBox shared folder feature](https://www.virtualbox.org/manual/ch04.html#sharedfolders) to the guest folders `/Tempo_HD` and `/Cadence_HD`.
 
 * Use this folder to make changes in the guest that should be synchronized with the host.
-* Use this folder to create an app with `mrt create`.
 * After you added or updated smart packages you must copy the smart.json and smart.lock file
-  from `/vagrant` to `/vagrant2` with (see [open issue](https://github.com/Sanjo/vagrant-meteor/issues/4)):
+  from `/meteor_cli` to `/Tempo_HD` with (see [open issue](https://github.com/Sanjo/vagrant-meteor/issues/4)):
   
 ```bash
 cp -f /vagrant/<MY_APP>/smart.* /vagrant2/<MY_APP>/
@@ -49,29 +46,31 @@ cp -f /vagrant/<MY_APP>/.meteor/packages /vagrant2/<MY_APP>/.meteor/
 * Cannot be used to start the Meteor app.
 * Cannot be used for `mrt add`, `mrt install` or `mrt update`
 
-### Create your first Meteor app
+### Running Tempo
 
-Do the following steps in the SSH terminal that opened with executing the `start.bat` script.
+If this is your first time running vagrant:
+1. Install nodejs:
+```sudo rm /var/lib/apt/lists/*``` It will complain about being unable to remove a "partial" directory, ignore this
+```sudo apt-get update```
+```sudo apt-get install nodejs```
 
-```bash
-# Create the app
-cd /vagrant2
-mrt create my-app --example leaderboard
-# Add an Atomosphere package
-cd /vagrant/my-app
-mrt add bootstrap3-less
-# Copy the changed smart.json and smart.lock to the host
-cp -f /vagrant/my-app/smart.* /vagrant2/my-app/
-# Start the app
-mrt
-```
+2. Start Meteor:
+```cd /meteor_cli
+meteor run```
 
-Now open the URL `http://localhost:3000` in your browser. It should show you the leaderboard example.
-Also look into the `vagrant-meteor` folder. It has automatically synchronised the my-app folder.
-You can now make changes to the app that will automatically be synchronized with the Vagrant VM.
+3. From a new ssh terminal, run cadence.js to populate mongo with test data:
+```cd /Cadence_HD
+node cadence.js```
 
-If you find this useful I would appreciate a [Gittip](https://www.gittip.com/Sanjo/).
 
-## Further reading
+4. Navigate to localhost:3000 in your host browser!
+
+Skip steps 1 and 3 for subsequent sessions (as long as you didn't run ```vagrant destroy```)
+
+
+
+
+
+## Credited:
 
 Check out the [wiki](https://github.com/Sanjo/vagrant-meteor/wiki) for more details.

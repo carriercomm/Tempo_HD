@@ -118,8 +118,8 @@ Template.map.onRendered(function(){
 				        })
                         .each(function(d) {
                             if(d.num == Meteor.clickbox.current_store) {
-                                //TODO: Only update the currently selected store
-                                clickbox.html(
+                                var oldHtml = '<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>';
+                                clickbox.html(oldHtml +
                                     '<div style="font-size:200%"><b>Store ' + d.num + '</br>' +
                                     '<b>NAME OF STORE HERE</b></br>' +
                                     '<b>Status: ' + d.status + '</b></div></br><hr></br>' +
