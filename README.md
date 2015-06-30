@@ -14,7 +14,7 @@ The following instructions are optimized for Windows users.
 2. Add the `<CYGWIN_INSTALL_DIR>/bin` folder to your [PATH](http://geekswithblogs.net/renso/archive/2009/10/21/how-to-set-the-windows-path-in-windows-7.aspx).
 3. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 4. Install [Vagrant](http://www.vagrantup.com/downloads.html) (1.6.1 or newer is needed).
-5. [Download this repository](https://github.com/Sanjo/vagrant-meteor/archive/master.zip) and unpack the downloaded zip file.
+5. Clone this repo to your local machine.
 6. Install and start the Vagrant VM by executing `start.bat`.
 It will take a little bit to download and install everything.
 Read the next part "File Synchronisation" while it installs. ;-)
