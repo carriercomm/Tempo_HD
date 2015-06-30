@@ -40,8 +40,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "./beacon_hd", "/beacon_hd"
-  config.vm.synced_folder "./beacon_hd", "/meteor_cli", type: "rsync",
+  config.vm.synced_folder "./Tempo_HD", "/Tempo_HD"
+  config.vm.synced_folder "./Cadence_HD", "/Cadence_HD"
+  config.vm.synced_folder "./Tempo_HD", "/meteor_cli", type: "rsync",
     rsync__args: ["--verbose", "--archive", "--delete", "-z", "--copy-links"],
     rsync__exclude: [
       ".meteor/local/",
