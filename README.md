@@ -50,22 +50,30 @@ cp -f /vagrant/<MY_APP>/.meteor/packages /vagrant2/<MY_APP>/.meteor/
 
 If this is your first time running vagrant:
 1. Install nodejs:
-```sudo rm /var/lib/apt/lists/*``` It will complain about being unable to remove a "partial" directory, ignore this
-```sudo apt-get update```
-```sudo apt-get install nodejs```
+```bash
+sudo rm /var/lib/apt/lists/*
+```
+It will complain about being unable to remove a "partial" directory, ignore this
+```bash
+sudo apt-get update
+sudo apt-get install nodejs
+```
 
 2. Start Meteor:
-```cd /meteor_cli
-meteor run```
+```bash
+cd /meteor_cli
+meteor run
+```
 
 3. From a new ssh terminal, run cadence.js to populate mongo with test data:
-```cd /Cadence_HD
-node cadence.js```
-
+```bash
+cd /Cadence_HD
+node cadence.js
+```
 
 4. Navigate to localhost:3000 in your host browser!
 
-Skip steps 1 and 3 for subsequent sessions (as long as you didn't run ```vagrant destroy```)
+Skip steps 1 and 3 for subsequent sessions (as long as you didn't run `vagrant destroy`)
 
 
 
