@@ -4,5 +4,8 @@
             <span id="minimize" >O</span>
             <span id="close">x</span>
         </div>
+        {{#with getInnerTemplate}}
+            {{>.}}
+        {{/with}}
     </div>
 </template>
