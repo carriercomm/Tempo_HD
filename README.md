@@ -91,3 +91,4 @@ Check out the [wiki](https://github.com/Sanjo/vagrant-meteor/wiki) for more deta
 CHANGELOG
 ---------
 v1.0 - initial build with Docker
+v2.0 - included missing packages in sourcecode

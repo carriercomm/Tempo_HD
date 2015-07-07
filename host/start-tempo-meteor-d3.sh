@@ -16,7 +16,7 @@ else
         echo "Use Jenkins Build TAG: ${TAG}"
     else
         # manually set the start tag
-        TAG=1.0
+        TAG=2.0
         echo "Use hardcoded start TAG: ${TAG}"
     fi
 fi
