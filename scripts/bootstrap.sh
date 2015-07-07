@@ -22,14 +22,22 @@ apt-get update
 # Install packages
 ##############################
 
-# Node.js
-apt-get -y install nodejs
+NODE_VERSION=0.12.5
+curl -SLO "http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" \
+  && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 \
+  && rm "node-v$NODE_VERSION-linux-x64.tar.gz"
 
-# Install the rest with the vagrant user
-su vagrant
+# Check if 'vagrant' user exists, if so execute this
+getent passwd vagrant > /dev/null 2>&1 && ret=true
 
-# Fix resolve problem with git:// URLs
-git config --global url."https://".insteadOf git://
+if $ret
+then
+    # Install the rest with the vagrant user
+    su vagrant
+
+    # Fix resolve problem with git:// URLs
+    git config --global url."https://".insteadOf git://
+fi
 
 # Meteor
 curl https://install.meteor.com | /bin/sh
