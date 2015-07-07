@@ -16,9 +16,6 @@ apt-get -y install curl imagemagick git python-software-properties
 # Configure package repositories
 ##############################
 
-# Node.js
-add-apt-repository ppa:chris-lea/node.js
-
 apt-get update
 
 ##############################
