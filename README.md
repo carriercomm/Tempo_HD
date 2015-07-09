@@ -92,3 +92,4 @@ CHANGELOG
 ---------
 v1.0 - initial build with Docker
 v2.0 - included missing packages in sourcecode
+v2.1 - second attempt at adding missing packages

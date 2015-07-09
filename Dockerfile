@@ -14,5 +14,8 @@ EXPOSE 3000
 
 WORKDIR /opt/isv/Tempo_HD
 
+RUN /usr/local/bin/meteor add d3
+RUN /usr/local/bin/meteor add garrilla:topojson
+
 CMD ["/usr/local/bin/meteor", "run"]
 

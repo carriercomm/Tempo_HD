@@ -8,7 +8,7 @@ then
 else
     # manually set the build tag
     echo "Use hardcoded build TAG"
-    TAG=2.0
+    TAG=2.1
 fi
 
 DOCKER_REPO=docker-registry.ems.homedepot.com
