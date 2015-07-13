@@ -10,7 +10,7 @@ Meteor.clickbox = {
             .on("drag", function() {
                 d3.select(this)
                     .style("top", ((d3.event.sourceEvent.pageY) - this.offsetHeight/2)+"px")
-                    .style("left", ((d3.event.sourceEvent.pageX) - this.offsetWidth/2)+"px")
+                    .style("left", ((d3.event.sourceEvent.pageX) - this.offsetWidth/2)+"px");
             });
         clickbox.call(drag);
         return clickbox;
@@ -24,13 +24,14 @@ Meteor.clickbox = {
         clickbox.heightOfBox = 125;
         var count = 1;
         //Create rows of 3 metrics
-        for (metric in d.metrics) {
+        var len = d.metrics.length;
+        for (var i = 0; i < len; i++) {
 
             if (count % 3 != 0) {
-                html += '<td><b>' + metric + ':</b></td><td>' + d.metrics[metric] + '</td>';
+                html += '<td><b>' + d.metrics[i].name + ':</b></td><td>' + d.metrics[i].value + '</td>';
             }
             else if (count % 3 == 0 || count != 0) {
-                html += '<td><b>' + metric + ':</b></td><td>' + d.metrics[metric] + '</td></tr><tr>';
+                html += '<td><b>' + d.metrics[i].name + ':</b></td><td>' + d.metrics[i].value + '</td></tr><tr>';
                 clickbox.heightOfBox += 25;
             }
             count++;
@@ -38,4 +39,4 @@ Meteor.clickbox = {
         clickbox.heightOfBox += 25;
         return html;
     }
-}
+};

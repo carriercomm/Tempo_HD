@@ -1,9 +1,9 @@
 /**
  * Created by JXP1195 on 7/6/2015.
  */
-Meteor.guage = {
+Meteor.googleGuage = {
 
-    guage: function (placeholderName, configuration) {
+    googleGuage: function (placeholderName, configuration) {
         this.placeholderName = placeholderName;
 
         var self = this; // for internal d3 functions
@@ -29,7 +29,7 @@ Meteor.guage = {
             this.config.redColor = configuration.redColor || "#DC3912";
 
             this.config.transitionDuration = configuration.transitionDuration || 500;
-        }
+        };
 
         this.render = function () {
             this.body = d3.select("#" + this.placeholderName)
@@ -120,7 +120,7 @@ Meteor.guage = {
                         .style("fill", "#333")
                         .style("stroke-width", "0px");
                 }
-            }
+            };
 
             var pointerContainer = this.body.append("svg:g").attr("class", "pointerContainer");
 
@@ -130,10 +130,10 @@ Meteor.guage = {
 
             var pointerLine = d3.svg.line()
                 .x(function (d) {
-                    return d.x
+                    return d.x;
                 })
                 .y(function (d) {
-                    return d.y
+                    return d.y;
                 })
                 .interpolate("basis");
 
@@ -144,7 +144,7 @@ Meteor.guage = {
                 .attr("d", pointerLine)
                 .style("fill", "#dc3912")
                 .style("stroke", "#c63310")
-                .style("fill-opacity", 0.7)
+                .style("fill-opacity", 0.7);
 
             pointerContainer.append("svg:circle")
                 .attr("cx", this.config.cx)
@@ -168,7 +168,7 @@ Meteor.guage = {
                 .style("stroke-width", "0px");
 
             this.redraw(this.config.min, 0);
-        }
+        };
 
         this.buildPointerPath = function (value) {
             var delta = this.config.range / 13;
@@ -190,7 +190,7 @@ Meteor.guage = {
                 point.y -= self.config.cy;
                 return point;
             }
-        }
+        };
 
         this.drawBand = function (start, end, color) {
             if (0 >= end - start) return;
@@ -203,9 +203,9 @@ Meteor.guage = {
                     .innerRadius(0.65 * this.config.raduis)
                     .outerRadius(0.85 * this.config.raduis))
                 .attr("transform", function () {
-                    return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(270)"
+                    return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(270)";
                 });
-        }
+        };
 
         this.redraw = function (value, transitionDuration) {
             var pointerContainer = this.body.select(".pointerContainer");
@@ -229,28 +229,28 @@ Meteor.guage = {
                     return function (step) {
                         var rotation = currentRotation + (targetRotation - currentRotation) * step;
                         return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(" + rotation + ")";
-                    }
+                    };
                 });
-        }
+        };
 
         this.valueToDegrees = function (value) {
             // thanks @closealert
             //return value / this.config.range * 270 - 45;
             return value / this.config.range * 270 - (this.config.min / this.config.range * 270 + 45);
-        }
+        };
 
         this.valueToRadians = function (value) {
             return this.valueToDegrees(value) * Math.PI / 180;
-        }
+        };
 
         this.valueToPoint = function (value, factor) {
             return {
                 x: this.config.cx - this.config.raduis * factor * Math.cos(this.valueToRadians(value)),
                 y: this.config.cy - this.config.raduis * factor * Math.sin(this.valueToRadians(value))
             };
-        }
+        };
 
         // initialization
         this.configure(configuration);
     }
-}
+};

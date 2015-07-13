@@ -10,8 +10,7 @@ Template.clickbox.events = {
             .duration(400)
             .style('opacity',0);
         //reset html so that it doesn't repeat itself
-        d3.select('#clickbox').html('<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>');//.style('pointer-events','none');
-        //take out dim from map
+        d3.select('#viz-container').html('');
     },
     'click span#minimize': function () {
         var clickbox = d3.select('#clickbox');
@@ -33,4 +32,4 @@ Template.clickbox.events = {
             d3.select('#clickbox').html('<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>');//.style('pointer-events','none');
         }
     }
-}
+};

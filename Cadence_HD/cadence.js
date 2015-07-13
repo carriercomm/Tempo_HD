@@ -74,15 +74,15 @@ var rebuildCollection = function(db, c, d){
         for(i; i < len; i++){
 
             //TODO: functionalize this for reuse in different commands
-            d[i].metrics = {
-                'cpu_%' : (Math.random() * 100).toFixed(2),
-                'mem_%' : (Math.random() * 100).toFixed(2),
-                'network' : (Math.random() * 1000).toFixed(2),
-                'critical_errors' : Math.floor(Math.random() * 10),
-                'warnings' : Math.floor(Math.random() * 10),
-                'open_incidents' : Math.floor(Math.random() * 10),
-                'incidents_last24' : Math.floor(Math.random() * 10)
-            };
+            d[i].metrics = [
+                {'name': 'cpu', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'mem', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'network', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'critical_errors', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'warnings', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'open_incidents', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'incidents_last24', 'value': (Math.random() * 100).toFixed(2)}
+            ];
             batch.insert(d[i]);
         }
 
@@ -133,15 +133,15 @@ var test_store = function(db, c){
             }
 
             doc.status === 'GREEN' ? doc.status = 'RED' : doc.status = 'GREEN';
-            doc.metrics = {
-                'cpu_%': (Math.random() * 100).toFixed(2),
-                'mem_%': (Math.random() * 100).toFixed(2),
-                'network': (Math.random() * 1000).toFixed(2),
-                'critical_errors': Math.floor(Math.random() * 10),
-                'warnings': Math.floor(Math.random() * 10),
-                'open_incidents': Math.floor(Math.random() * 10),
-                'incidents_last24': Math.floor(Math.random() * 10)
-            };
+            doc.metrics = [
+                {'name': 'cpu', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'mem', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'network', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'critical_errors', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'warnings', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'open_incidents', 'value': (Math.random() * 100).toFixed(2)},
+                {'name': 'incidents_last24', 'value': (Math.random() * 100).toFixed(2)}
+            ];
 
             console.log('\nUpdated Status:');
             console.log(doc);
@@ -196,15 +196,15 @@ var test_all = function(db,c,cb){
                 var store_to_update = stores[offset];
 
                 store_to_update.status === 'GREEN' ? store_to_update.status = 'RED' : store_to_update.status = 'GREEN';
-                store_to_update.metrics = {
-                    'cpu_%': (Math.random() * 100).toFixed(2),
-                    'mem_%': (Math.random() * 100).toFixed(2),
-                    'network': (Math.random() * 1000).toFixed(2),
-                    'critical_errors': Math.floor(Math.random() * 10),
-                    'warnings': Math.floor(Math.random() * 10),
-                    'open_incidents': Math.floor(Math.random() * 10),
-                    'incidents_last24': Math.floor(Math.random() * 10)
-                };
+                store_to_update.metrics = [
+	                {'name': 'cpu', 'value': (Math.random() * 100).toFixed(2)},
+	                {'name': 'mem', 'value': (Math.random() * 100).toFixed(2)},
+	                {'name': 'network', 'value': (Math.random() * 100).toFixed(2)},
+	                {'name': 'critical_errors', 'value': (Math.random() * 100).toFixed(2)},
+	                {'name': 'warnings', 'value': (Math.random() * 100).toFixed(2)},
+	                {'name': 'open_incidents', 'value': (Math.random() * 100).toFixed(2)},
+	                {'name': 'incidents_last24', 'value': (Math.random() * 100).toFixed(2)}
+	            ];
 
                 batch_update.find({'num':store_to_update.num}).updateOne({$set: store_to_update});
 
