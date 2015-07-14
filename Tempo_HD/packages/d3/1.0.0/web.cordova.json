@@ -1,0 +1,27 @@
+{
+  "format": "unipackage-unibuild-pre1",
+  "packageVariables": [
+    {
+      "name": "d3",
+      "export": true
+    },
+    {
+      "name": "b"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "web.cordova/packages/d3.js",
+      "length": 1081191,
+      "offset": 0,
+      "servePath": "/packages/d3.js",
+      "sourceMap": "web.cordova/packages/d3.js.map"
+    }
+  ]
+}

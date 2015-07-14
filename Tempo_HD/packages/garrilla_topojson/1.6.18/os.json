@@ -1,0 +1,19 @@
+{
+  "format": "unipackage-unibuild-pre1",
+  "packageVariables": [],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "os/packages/garrilla_topojson.js",
+      "length": 684,
+      "offset": 0,
+      "servePath": "/packages/garrilla_topojson.js",
+      "sourceMap": "os/packages/garrilla_topojson.js.map"
+    }
+  ]
+}

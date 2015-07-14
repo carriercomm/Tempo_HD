@@ -6,6 +6,6 @@
 
 meteor-platform
 insecure
-d3
 underscore
+d3
 garrilla:topojson

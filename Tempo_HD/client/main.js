@@ -35,7 +35,13 @@ Template.map.onRendered(function(){
         g.attr('transform', 'translate(' + t + '),scale(' + s + ')');
         g.selectAll('path').style('stroke-width', .5 / s + 'px');
         g.selectAll('circle')
-            .attr('r', 3/s)
+            .attr('r', function(d){
+                if(d.status == 'RED') {
+                    return 4 / s;
+                }else{
+                    return 3 / s;
+                }
+            })
             .attr('stroke-width',.7/s);
 
         currentScale = s;
@@ -46,6 +52,7 @@ Template.map.onRendered(function(){
     svg = d3.select('#map').append('svg')
         .attr('width', width)
         .attr('height', height)
+        .attr('class', 'canvas')
         .call(zoom);
 
     var g = svg.append('g');
@@ -104,36 +111,60 @@ Template.map.onRendered(function(){
         g.attr('transform', 'translate(0,0),scale(2)');
         g.selectAll('path').style('stroke-width', .5 / currentScale + 'px');
 
+
 		Tracker.autorun(function(){
 
 		    // Checks to make sure data from mongo has loaded:
 			if(stores_handle.ready()){
 
-				var store_status = StoreStatus.find().fetch();
+                var store_status = StoreStatus.find().fetch();
 
 				var circles = g.selectAll("circle")
-					.data(store_status)
+					.data(store_status, function(d){return d.num;})
+                        .sort(function(a,b){
+                            if(a.status === 'RED'){
+                                return 1;
+                            }else{
+                                return -1;
+                            }
+                        })
 						.style('fill', function(d){
 					        return d.status;
 				        })
+                        .attr('r', function(d){
+                            if(d.status == 'RED') {
+                                return 4 / currentScale;
+                            }else{
+                                return 3 / currentScale;
+                            }
+                        })
                         .each(function(d) {
                             if(d.num == Meteor.clickbox.current_store) {
-                                var oldHtml = '<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>';
-                                clickbox.html(oldHtml +
-                                    '<div style="font-size:200%"><b>Store ' + d.num + '</br>' +
-                                    '<b>NAME OF STORE HERE</b></br>' +
-                                    '<b>Status: ' + d.status + '</b></div></br><hr></br>' +
-                                    '<div style="font-size:150%"><table style="width:100%;">' + Meteor.clickbox.getMetrics(d) + '</table></div>'
-                                );
+                            	Meteor.clickboxHeader.reset();
+                            	Meteor.simpleGuage.reset();
+                            	Meteor.clickboxHeader.clickboxHeader(d);
+                                Meteor.simpleGuage.simpleGuage(d.metrics);
                                 Meteor.clickbox.current_store = d.num;
                             }
                         })
-					.enter().append('circle')
+					.enter().append('circle').sort(function(a,b){
+                        if(a.status === 'RED'){
+                            return 1;
+                        }else{
+                            return -1;
+                        }
+                    })
 						.attr('transform', function(d) {
 							return 'translate(' + projection([Number(d.lng), Number(d.lat)]) + ')';
 						})
 						.attr('class', 'place')
-						.attr('r', 3/currentScale )
+						.attr('r', function(d){
+                            if(d.status == 'RED') {
+                                return 4 / currentScale;
+                            }else{
+                                return 3 / currentScale;
+                            }
+                        })
 						.style('fill', function(d){
 							return d.status;
 						})
@@ -144,7 +175,7 @@ Template.map.onRendered(function(){
                                 .duration(200)
                                 .style("opacity", .8);
                             hoverbox.html(d.num + "<br/>"  + d.status)
-                                .style("left", (d3.event.pageX) + "px")
+                                .style("left", (d3.event.pageX + 5) + "px")
                                 .style("top", (d3.event.pageY - 28) + "px");
                         })
                         .on("mouseout", function() {
@@ -153,32 +184,27 @@ Template.map.onRendered(function(){
                                 .style("opacity", 0);
                         })
                         .on('click', function(d){
+      	
                             hoverbox.style('opacity',0);
                             clickbox.transition()
                                 .duration(400)
                                 .style("opacity", .9);
-
-                            //Need to add additional html generated by code to existing html in div (X button-close)
-                            var oldHtml = '<div id="toolbar" class="close"><span id="minimize">_ </span><span id="close">X</span></div>';
+                            
                             clickbox.attr('class','clickbox')
-                                .html( oldHtml +
-                                '<div style="font-size:200%"><b>Store '+ d.num + '</br>'+
-                                '<b>NAME OF STORE HERE</b></br>' +
-                                '<b>Status: '+ d.status + '</b></div></br><hr></br>' +
-                                '<div style="font-size:150%"><table style="width:100%;">' + Meteor.clickbox.getMetrics(d) + '</table></div>'
-                            )
                                 .style('height',clickbox.heightOfBox + 'px')
                                 .style('pointer-events', 'auto');
 
-                        if(clickbox.style("opacity") == 0){
-                            clickbox.style("left", (width/2)-350 + "px")
-                                .style("top", height/2-250 + "px");
-                        }
+                            if(clickbox.style("opacity") == 0){
+                                clickbox.style("left", (width/2)-350 + "px")
+                                    .style("top", height/2-250 + "px");
+                            }
                             //Dim background while clickbox is open
                             //svg.attr('class','dimming');
-
-			    Meteor.clickbox.current_store = d.num;
+                            Meteor.clickboxHeader.clickboxHeader(d);
+							Meteor.simpleGuage.simpleGuage(d.metrics);
+			                Meteor.clickbox.current_store = d.num;
                         });
+ 
 			}
 		});
 	});

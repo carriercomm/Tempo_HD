@@ -1,0 +1,27 @@
+{
+  "format": "unipackage-unibuild-pre1",
+  "packageVariables": [
+    {
+      "name": "topojson",
+      "export": true
+    },
+    {
+      "name": "n"
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "web.cordova/packages/garrilla_topojson.js",
+      "length": 63523,
+      "offset": 0,
+      "servePath": "/packages/garrilla_topojson.js",
+      "sourceMap": "web.cordova/packages/garrilla_topojson.js.map"
+    }
+  ]
+}

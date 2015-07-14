@@ -86,3 +86,10 @@ Skip steps 1 and 3 for subsequent sessions (as long as you didn't run `vagrant d
 ## Credited:
 
 Check out the [wiki](https://github.com/Sanjo/vagrant-meteor/wiki) for more details.
+
+
+CHANGELOG
+---------
+v1.0 - initial build with Docker
+v2.0 - included missing packages in sourcecode
+v2.1 - second attempt at adding missing packages
